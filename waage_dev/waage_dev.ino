@@ -79,10 +79,13 @@ void loop()
         else if (command == "<SZ>") {
             Serial.println("<00>");
         }
+        else if (command.startsWith("<PR")) {
+            Serial.println("<00>");
+        }
         else if (command.startsWith("SETDATE")) {
           command.remove(0, 8);
           datum = command;
-          Serial.println("Datum setzen: " + datum);
+          Serial.println("<00>");
         }
         else
         {
