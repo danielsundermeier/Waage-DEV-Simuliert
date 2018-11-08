@@ -82,8 +82,9 @@ void loop()
         else if (command.startsWith("<PR")) {
             Serial.println("<00>");
         }
-        else if (command.startsWith("SETDATE")) {
-          command.remove(0, 8);
+        else if (command.startsWith("ST")) {
+          command.remove(0, 2);
+          command.remove(8);
           datum = command;
           Serial.println("<00>");
         }
