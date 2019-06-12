@@ -28,12 +28,12 @@ String zeit()
     return String(stunde) + ":" + String(minute);
 }
 
-String IdentNummer()
+String IdentNummer(unsigned int stellen = 4)
 {
     String nummer = String(laufendeNummer);
 
     String leerzeichen = "";
-    for(unsigned int i=0; i<(4-nummer.length()); i++){
+    for(unsigned int i = 0; i < (stellen - nummer.length()); i++) {
         leerzeichen += " ";
     }
     leerzeichen += nummer;
@@ -47,6 +47,11 @@ void antwortGewicht(bool sendIdent = true)
 {
     String weight = randomWeight();
     Serial.println("<" + String("00") + String("00") + getDatum() + zeit() + (sendIdent ? IdentNummer() : String("   1")) + String("1") + weight + String("       0") + weight + String("kg") + String("PT") + String(" ") + String("001") + String("   12348") + ">");
+}
+
+void antwortGewichtTell() {
+    String weight = randomWeight();
+    Serial.println(String("1;") + IdentNummer(10) + String(";") + getDatum() + String(";") + zeit() + String(";1;1;       0;") + String("kg") + weight + String(";") + weight + String(";") + weight + String(";111"));
 }
 
 void setup()
@@ -78,6 +83,9 @@ void loop()
         }
         else if (command == "<SZ>") {
             Serial.println("<00>");
+        }
+        else if (command == "<FP0>") {
+            antwortGewichtTell();
         }
         else if (command.startsWith("<PR")) {
             Serial.println("<00>");
