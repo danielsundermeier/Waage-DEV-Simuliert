@@ -54,6 +54,12 @@ void antwortGewichtTell() {
     Serial.println(String("1;") + IdentNummer(10) + String(";") + getDatum() + String(";") + zeit() + String(";1;1;       0;") + String("kg") + weight + String(";") + weight + String(";") + weight + String(";111"));
 }
 
+void antwortGewichtPfister() {
+    Serial.println("OK");
+    String weight = randomWeight();
+    Serial.println(String("$MP") + IdentNummer(6) + String("  ") + weight + String("kg"));
+}
+
 void setup()
 {
     Serial.begin(4800);
@@ -86,6 +92,9 @@ void loop()
         }
         else if (command == "<FP0>") {
             antwortGewichtTell();
+        }
+        else if (command == "MP") {
+            antwortGewichtPfister();
         }
         else if (command.startsWith("<PR")) {
             Serial.println("<00>");
